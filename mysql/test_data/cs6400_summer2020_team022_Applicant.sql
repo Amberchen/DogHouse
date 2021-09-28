@@ -1,0 +1,3 @@
+INSERT INTO cs6400_summer2020_team022.Applicant (email, last_name, first_name, phone_number, address) VALUES ('ap1@application.com', 'apFirst1', 'apLast1', '1111122222', 'test');
+INSERT INTO cs6400_summer2020_team022.Applicant (email, last_name, first_name, phone_number, address) VALUES ('ap2@application.com', 'apFirst2', 'apLast2', '1111133333', 'test');
+INSERT INTO cs6400_summer2020_team022.Applicant (email, last_name, first_name, phone_number, address) VALUES ('ap3@application.com', 'apFirst3', 'apLast3', '1111144444', 'test');

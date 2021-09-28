@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form action="{{url_for('add_expense')}}" method="POST">
+					<div class="row">
+						<div class="col md-12">
+							<label>Date:</label>
+						</div>
+						<div class='col md-12 input-group date'>
+							<input type='date' dataformatas="yyyy-mm-dd" class="form-control" id='datepicker1' name="date" min="{{surrender_date}}" max="{{adoption_date}}" required/>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col md-12">
+							<label>Amount:</label>
+						</div>
+						<div class="col md-12">
+							<input type="text" class="form-control" id="amount" name="amount" required>
+						</div>
+					</div>
+					<br>
+
+					<div class="row">
+						<div class="col md-12">
+							<label>Description:</label>
+						</div>
+						<div class="col md-12">
+							<textarea class="form-control" name="description" ></textarea>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col md-12">
+							<label>Vender:</label>
+						</div>
+						<div class="col md-12">
+							<select name='vender' class="form-control" form-control required>
+								{%for id, name in venders %}
+								<option value={{id}}>{{name}}</option>
+								{%endfor%}
+							</select>
+						</div>
+					</div>
+					<input type="text" id="dog_id" name="dog_id" value="{{dog_id}}" hidden>
+					<input type="text" name="surrender_date" value="{{surrender_date}}" hidden>
+					<input type="text" name="adoption_date" value="{{adoption_date}}" hidden>
+					<br>
+					<div class="col-md-12 form-group ">
+						<button class="btn btn-primary " type="submit" onsubmit="return validateMyForm();">Add Expense</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

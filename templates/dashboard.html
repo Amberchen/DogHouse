@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Dog List (current available spaces: {{available_spaces}}) </h3>
+<table id="dog_table" class="table table-striped display nowrap responsive">
+	<thead>
+	<tr>
+		{%for field in dogs.columns[:-1] %}
+		<th>{{field}}</th>
+		{%endfor%}
+	</tr>
+	</thead>
+	<tbody>
+	{%for index, dog in dogs.iterrows() %}
+	<tr>
+		{%for field in dogs.columns[:-1] %}
+		{%if field != 'name' %}
+		<td>{{dog[field]}}</td>
+		{% else %}
+		<td><a href="/dog?dogid={{dog['dog_id']}}">{{dog[field]}} </a></td>
+		{% endif %}
+		{%endfor%}
+	</tr>
+	{%endfor%}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	$('#dog_table').DataTable();
+</script>
+{% endblock %}
+

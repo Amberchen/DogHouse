@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>Monthly Surrender Report</h3>
+        <table id="surrender" class="table table-striped display nowrap responsive">
+            <thead>
+            <tr>
+                {%for field in surrendered_dog.columns[:] %}
+                    <th>{{field}}</th>
+                {%endfor%}
+            </tr>
+            </thead>
+            <tbody>
+                {%for index, row in surrendered_dog.iterrows() %}
+                <tr>
+                    {%for ele in row[:] %}
+                        <td>{{ele}}</td>
+                    {%endfor%}
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+{% endblock %}

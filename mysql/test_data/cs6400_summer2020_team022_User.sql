@@ -1,0 +1,6 @@
+INSERT INTO cs6400_summer2020_team022.User (email, password, first_name, last_name, phone_number, start_date) VALUES ('test@test.com', '123456', 'tfirst', 'tlast', '123456789', '2020-06-01');
+INSERT INTO cs6400_summer2020_team022.User (email, password, first_name, last_name, phone_number, start_date) VALUES ('test2@test.com', '123456', 'tffirst2', 'tlast2', '111111111', '2020-06-01');
+INSERT INTO cs6400_summer2020_team022.User (email, password, first_name, last_name, phone_number, start_date) VALUES ('test3@test.com', '123456', 'tFFirst3', 'TfLAST3', '222222222', '2020-06-02');
+INSERT INTO cs6400_summer2020_team022.User (email, password, first_name, last_name, phone_number, start_date) VALUES ('test4@test.com', '123456', 'aaabbbccc', 'cccddd', '333333333', '2020-06-04');
+INSERT INTO cs6400_summer2020_team022.User (email, password, first_name, last_name, phone_number, start_date) VALUES ('test5@test.com', '123456', 'bbbcccddd', 'aaabbb', '444444444', '2020-06-04');
+INSERT INTO cs6400_summer2020_team022.User (email, password, first_name, last_name, phone_number, start_date) VALUES ('test6@test.com', '123456', 'aaabbbccc', 'adadad', '555555555', '2020-06-09');

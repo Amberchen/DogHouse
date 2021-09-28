@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Application Detail </h3>
+{% if not hasData %}
+No Application
+{% else %}
+<table id="application_table" class="table responsive">
+	<thead>
+	<tr>
+		<th>Application Id:</th>
+		<th>Applicant Email:</th>
+		<th>Submit Date:</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Address:</th>
+		<th>Phone Number:</th>
+		<th>Co-applicant First Name:</th>
+		<th>Co-applicant Last Name:</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th>{{application[0]['application_id']}}</th>
+		<th>{{application[0]['applicant_email']}}</th>
+		<th>{{application[0]['submit_date']}}</th>
+		<th>{{application[0]['first_name']}}</th>
+		<th>{{application[0]['last_name']}}</th>
+		<th>{{application[0]['address']}}</th>
+		<th>{{application[0]['phone_number']}}</th>
+		<th>{{application[0]['co_applicant_first_name']}}</th>
+		<th>{{application[0]['co_applicant_last_name']}}</th>
+	</tr>
+	</tbody>
+</table>
+
+
+<h3>Adoption Fee</h3>
+<table id="adoption_fee_table" class="table responsive">
+	<thead>
+	<tr>
+		<th>Adoption Fee:</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{adoption_fee}}</td>
+	</tr>
+	</tbody>
+</table>
+
+<h3>Submit Adoption</h3>
+<div class="container">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form action="{{url_for('dog_adoption_application')}}" method="POST">
+					<div class="row">
+						<div class="col md-12">
+							<label>Adoption Date:</label>
+						</div>
+						<div class='col md-12 input-group date'>
+							<input type='date' dataformatas="yyyy-mm-dd" class="form-control" name="adoption_date" required/>
+						</div>
+					</div>
+					<input type="text" name="application_id" value="{{application[0]['application_id']}}" hidden>
+					<input type="text" name="dog_id" value="{{dog_id}}" hidden>
+					<input type="text" name="process" value="update" hidden>
+					<div class="col-md-12 form-group ">
+						<button class="btn btn-primary" type="submit" >Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	$("table").each(function() {
+		if ( !$(this).hasClass("reverted") ) {
+			var $this = $(this);
+			var newrows = [];
+			$this.find("tr").each(function(){
+				var i = 0;
+				$(this).find("td, th").each(function(){
+					i++;
+					if(newrows[i] === undefined) {
+						newrows[i] = $("<tr></tr>");
+					}
+					newrows[i].append($(this));
+				});
+			});
+			$this.find("tr").remove();
+			$.each(newrows, function(){
+				$this.append(this);
+				$this.addClass('reverted');
+			});
+		}
+	});
+</script>
+{% endblock %}

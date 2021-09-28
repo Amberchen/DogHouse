@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Volunteer Lookup</h3>
+<form action="{{url_for('volunteer_lookup')}}" method="POST">
+	<div class="row">
+		<div class="col md-12">
+			<input type="text" placeholder="Input keyword for Volunteer name" class="form-control" id="target_name" name="target_name" required>
+		</div>
+	</div>
+	<br>
+	<div class="col-md-12 form-group ">
+		<button class="btn btn-primary " type="submit" >Search</button>
+	</div>
+</form>
+
+{% if show_result %}
+<table id="Volunteer table" class="table responsive">
+	<thead>
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Phone Number</th>
+	</tr>
+	</thead>
+	<tbody>
+	{%for index, volunteer in volunteers.iterrows() %}
+	<tr>
+		<td>{{volunteer['first_name']}}</td>
+		<td>{{volunteer['last_name']}}</td>
+		<td>{{volunteer['email']}}</td>
+		<td>{{volunteer['phone_number']}}</td>
+
+	</tr>
+	{%endfor%}
+	</tbody>
+</table>
+{% endif %}
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+		
+			<h3>Pending Apllication</h3>
+			
+			<table id="pending_application_table" class="table table-striped display nowrap responsive">
+				<thead>
+				<tr>
+					{%for field in pending_applications.columns %}
+						<th>{{field}}</th>
+					{%endfor%}
+					<th>Review</th>
+				</tr>
+				</thead>
+				<tbody>
+					{%for index, pending_application in pending_applications.iterrows() %}
+
+					<tr>
+						{%for field in pending_applications.columns %}
+							
+							<td>{{pending_application[field]}}</td>
+							
+						{%endfor%}
+						<td>
+					<a href="/approve?applicationid={{pending_application['application_id']}}" class="btn btn-warning btn-xs" onclick="return confirm('Are You Sure To Approve')">Approve</a>
+					<a href="/reject?applicationid={{pending_application['application_id']}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Reject')">Reject</a>
+
+				</td>
+
+					</tr>
+					{%endfor%}
+
+				</tbody> 
+           </table>
+		</div> 	
+	</div>
+</body>
+
+
+
+
+{% endblock %}
+{% block script %}
+ <script type="text/javascript">
+    $('#pending_application_table').DataTable();
+  </script>
+{% endblock %}

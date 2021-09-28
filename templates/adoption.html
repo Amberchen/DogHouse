@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>Monthly Adoption Report</h3>
+        <table id="adoption" class="table table-striped display nowrap responsive">
+            <thead>
+            <tr>
+                {%for field in adoption_dog.columns[:] %}
+                    <th>{{field}}</th>
+                {%endfor%}
+            </tr>
+            </thead>
+            <tbody>
+                {%for index, row in adoption_dog.iterrows() %}
+                <tr>
+                    {%for ele in row[:] %}
+                        <td>{{ele}}</td>
+                    {%endfor%}
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+{% endblock %}

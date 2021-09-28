@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Dog Detail </h3>
+{% if canAdopted %}
+<div class="row">
+	<div class="col md-12">
+		<form action="/dog_adoption" method="GET">
+			<input name="dog_id" value="{{dog_id}}" hidden />
+			<button  type="submit" class="btn btn-success ">
+				Add Adoption
+			</button>
+		</form>
+	</div>
+</div>
+<br>
+{% endif %}
+
+<table id="dog_table" class="table responsive">
+	<thead>
+	<tr>
+		<th>Surrender Date:</th>
+		<th>Adoptability Status:</th>
+		<th>Dog Name:</th>
+		<th>Sex:</th>
+		<th>Alteration Status:</th>
+		<th>Age:</th>
+		<th>Birth Date:</th>
+		<th>Description:</th>
+		<th>Microchip ID:</th>
+		<th>Is Animal Control:</th>
+		<th>Breed:</th>
+		<th>Dog ID:</th>
+		<th>Surrender Reason:</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr>
+		{%for d in dog %}
+		{% if d[0] == 'sex' and d[1] == 'Unknown' and adoption_date == '' %}
+		<td>
+			<select name='sex_select' id="sex_select" class="form-control" form-control>
+				<option value='Unknown' selected>Unknown</option>
+				<option value='Male'>Male</option>
+				<option value='Female'>Female</option>
+			</select>
+		</td>
+		{% elif d[0] == 'alteration_status' and d[1] == 0 and adoption_date == '' %}
+		<td>
+			<select name='alteration_status_select' id="alteration_status_select" class="form-control" form-control>
+				<option value=0 selected>No</option>
+				<option value=1>Yes</option>
+			</select>
+		</td>
+		{% elif d[0] == 'age' %}
+		<td>
+			{{d[1][0]}} Year(s) {{d[1][1]}} Month(s)
+		</td>
+		{% elif d[0] == 'microchip_id' and d[1] is none and adoption_date == '' %}
+		<td>
+			<input type="text" class="form-control" name="microchip_id_input" id="microchip_id_input" placeholder="None" >
+		</td>
+		{% elif d[0] == 'breed_name' and (d[1] is none or d[1] == 'Unknown') and adoption_date == '' %}
+		<td>
+			<select name='breed_select' id="breed_select" class="form-control" multiple form-control>
+				{%for index, breed in breeds.iterrows() %}
+				<option value={{breed[0]}}>{{breed[1]}}</option>
+				{%endfor%}
+			</select>
+		</td>
+		{% else %}
+		<td>{{d[1]}}</td>
+		{% endif %}
+		{%endfor%}
+		</tr>
+		<form action="/dog" id="update_dog_form" method="POST">
+			<input name="dog_id" value="{{dog_id}}" hidden />
+			<input name="sex" id="sex" hidden />
+			<input name="alteration_status" id="alteration_status" hidden />
+			<input name="microchip_id" id="microchip_id"  hidden />
+			<select name='breed' id="breed" class="form-control" multiple hidden>
+				{%for index, breed in breeds.iterrows() %}
+				<option value={{breed[0]}}>{{breed[1]}}</option>
+				{%endfor%}
+			</select>
+			{% if canUpdate and adoption_date == '' %}
+			<button  type="submit" id="update_dog_button" class="btn btn-success ">
+				Update Dog
+			</button>
+			{% endif %}
+		</form>
+	</tbody>
+
+</table>
+<h3>Expense Detail </h3>
+<div class="container">
+	<div class="row">
+		<div class="col md-12">
+			<form action="/addexpense" method="get">
+				<input name="dog_id" value="{{dog_id}}" hidden />
+				<input name="surrender_date" value="{{surrender_date}}" hidden />
+				<input name="adoption_date" value="{{adoption_date}}" hidden />
+				<button  type="submit" class="btn btn-success ">
+					Add Expense
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+<table id="expense_table" class="table responsive reverted">
+	<thead>
+	<tr>
+		<th>Expense Date:</th>
+		<th>Amount:</th>
+		<th>Vender:</th>
+		<th>Description:</th>
+	</tr>
+	</thead>
+	<tbody>
+	{%for expense in expenses %}
+	<tr>
+		<td>{{expense['expense_date']}}</td>
+		<td>{{'%0.2f' % expense['amount']}}</td>
+		<td>{{expense['vender_name']}}</td>
+		<td>{{expense['description']}}</td>
+	</tr>
+	{%endfor%}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	$("table").each(function() {
+		if ( !$(this).hasClass("reverted") ) {
+			var $this = $(this);
+			var newrows = [];
+			$this.find("tr").each(function(){
+				var i = 0;
+				$(this).find("td, th").each(function(){
+					i++;
+					if(newrows[i] === undefined) {
+						newrows[i] = $("<tr></tr>");
+					}
+					newrows[i].append($(this));
+				});
+			});
+			$this.find("tr").remove();
+			$.each(newrows, function(){
+				$this.append(this);
+				$this.addClass('reverted');
+			});
+		}
+	});
+
+	$("#update_dog_button").click(function(){
+		$('#sex').attr('value', $('select[name=sex_select] option').filter(':selected').val());
+		$('#alteration_status').attr('value', $('select[name=alteration_status_select] option').filter(':selected').val());
+		$('#microchip_id').attr('value', $('#microchip_id_input').val());
+		$('#breed').val($('#breed_select').val());
+		$("#update_dog_form").submit();
+	});
+</script>
+
+{% endblock %}
+

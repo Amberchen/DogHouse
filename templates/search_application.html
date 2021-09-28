@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Search Applicant or Co-Applicant Lastname</h3>
+<form action="{{url_for('dog_adoption')}}" method="POST">
+	<div class="row">
+		<div class="col md-12">
+			<input type="text" placeholder="Input Applicant or Co-Applicant Lastname" class="form-control" id="lastname" name="lastname" required>
+		</div>
+	</div>
+	<br>
+	<input type="text" id="dog_id" name="dog_id" value="{{dog_id}}" hidden>
+	<input type="text" id="process" name="process" value="searchResult" hidden>
+	<div class="col-md-12 form-group ">
+		<button class="btn btn-primary " type="submit" >Search</button>
+	</div>
+</form>
+
+{% if show_result %}
+<table id="approved_application_table" class="table responsive">
+	<thead>
+	<tr>
+		<th>Applicant Email:</th>
+		<th>Applicant First Name:</th>
+		<th>Applicant Last Name:</th>
+		<th>Address:</th>
+		<th>Phone Number:</th>
+		<th>Co-applicant First Name:</th>
+		<th>Co-applicant Last Name:</th>
+		<th>Recent Application</th>
+	</tr>
+	</thead>
+	<tbody>
+	{%for applicant in applicants %}
+	<tr>
+		<td>{{applicant['applicant_email']}}</td>
+		<td>{{applicant['first_name']}}</td>
+		<td>{{applicant['last_name']}}</td>
+		<td>{{applicant['address']}}</td>
+		<td>{{applicant['phone_number']}}</td>
+		<td>{{applicant['co_applicant_first_name']}}</td>
+		<td>{{applicant['co_applicant_last_name']}}</td>
+		<td>
+			<form action="{{url_for('dog_adoption_application')}}" method="POST">
+				<input type="text" name="dog_id" value="{{dog_id}}" hidden>
+				<input type="text" name="applicant_email" value="{{applicant['applicant_email']}}" hidden>
+				<input type="text" name="co_applicant_first_name" value="{{applicant['co_applicant_first_name']}}" hidden>
+				<input type="text" name="co_applicant_last_name" value="{{applicant['co_applicant_last_name']}}" hidden>
+				<input type="text" name="process" value="search" hidden>
+				<div class="col-md-12 form-group ">
+					<button class="btn btn-primary " type="submit" >See Application</button>
+				</div>
+			</form>
+		</td>
+	</tr>
+	{%endfor%}
+	</tbody>
+</table>
+{% endif %}
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}
+

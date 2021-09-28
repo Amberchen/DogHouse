@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Expense Analysis </h3>
+<table id="expense_table" class="table responsive reverted">
+	<thead>
+	<tr>
+		<th>Vender id:</th>
+		<th>Vender:</th>
+		<th>Total Amount:</th>
+	</tr>
+	</thead>
+	<tbody>
+	{%for expense in expenses %}
+	<tr>
+		<td>{{expense['vender_id']}}</td>
+		<td>{{expense['vender_name']}}</td>
+		<td>{{'%0.2f' % expense['total_expense']}}</td>
+	</tr>
+	{%endfor%}
+	</tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>Animal Control - Adoption Dogs</h3>
+        <table id="expenses" class="table table-striped display nowrap responsive">
+            <thead>
+            <tr>
+                {%for field in animal_control_expense.columns[:] %}
+                    <th>{{field}}</th>
+                {%endfor%}
+            </tr>
+            </thead>
+            <tbody>
+                {%for index, row in animal_control_expense.iterrows() %}
+                <tr>
+                    {%for ele in row[:] %}
+                        <td>{{ele}}</td>
+                    {%endfor%}
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+
+
+{% endblock %}

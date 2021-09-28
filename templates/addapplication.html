@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+		<div class="container">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<form action="{{url_for('add_application')}}" method="POST">
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>Applicant email:</label>
+										<input type="email" class="form-control" name="email" placeholder="joesmith@testemail.com" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>submit_date:</label>
+										<input type="text" class="form-control" name="submit_date" placeholder="2020-04-01" required>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>Applicant's first name:</label>
+										<input type="text" class="form-control" name="applicant_first_name" placeholder="Joe" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>Applicant's last name:</label>
+										<input type="text" class="form-control" name="applicant_last_name" placeholder="Smith" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>Phone number:</label>
+										<input type="text" class="form-control" name="phone_number" placeholder="1112223333" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>Address:</label>
+										<input type="text" class="form-control" name="address" placeholder="500 1st Str, NYC, NY 20000" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>Co-applicant's first name:</label>
+										<input type="text" class="form-control" name="co_applicant_first_name" placeholder="coapp_first">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col md-12">
+									<div class="form-group">
+										<label>Co-applicant's last name:</label>
+										<input type="text" class="form-control" name="co_applicant_last_name" placeholder="coapp_last">
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-12 form-group ">
+								<button class="btn btn-primary " type="submit">Add application</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+{% endblock %}

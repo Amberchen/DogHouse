@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  mysql:
+    build: ./mysql
+    container_name: mysql-8
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_USER: "mo"
+      MYSQL_PASSWORD: "mo123"
+      MYSQL_ROOT_PASSWORD: "123456"
+    volumes:
+      - db-data:/var/lib/dockermysql
+    restart: always
+    networks:
+      - overlay
+
+volumes:
+  db-data:
+
+networks:
+  overlay:
